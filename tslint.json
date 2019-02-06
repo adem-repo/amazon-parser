@@ -1,0 +1,16 @@
+{
+//  "extends": ["tslint-config-airbnb", "tslint-react", "@mcmath/tslint-rules"],
+//  "rulesDirectory": [
+//    "node_modules/tslint-lines-between-class-members"
+//  ],
+  "rules": {
+    "max-line-length": [true, {"limit": 150, "ignore-pattern": "^import |^export {(.*?)}"}],
+    "lines-between-class-members": true,
+    "enum-member-name": [true, "caps-case"],
+    "enum-name": [true, "pascal-case"],
+    "semicolon": ["error", "never"],
+    "jsx-no-multiline-js": false,
+    "jsx-no-lambda": false,
+    "variable-name": [true, "ban-keywords", "check-format", "allow-pascal-case", "allow-leading-underscore"]
+  }
+}

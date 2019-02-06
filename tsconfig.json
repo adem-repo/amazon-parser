@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "removeComments": true,
+    "sourceMap": true,
+    "inlineSources": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "strictNullChecks": true,
+    "lib": ["es6", "dom"],
+    "jsx": "react",
+    "outDir": "dist",
+    "baseUrl": "./"
+  },
+  "exclude": [
+    "node_modules",
+    "static"
+  ]
+}
