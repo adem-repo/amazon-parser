@@ -1,0 +1,1 @@
+{"version":3,"file":"constants.js","sourceRoot":"","sources":["../src/constants.ts"],"names":[],"mappings":";;AAAA,IAAY,SAEX;AAFD,WAAY,SAAS;IACpB,qDAAwC,CAAA;AACzC,CAAC,EAFW,SAAS,GAAT,iBAAS,KAAT,iBAAS,QAEpB","sourcesContent":["export enum Constants {\r\n\tamazonAddress = 'https://www.amazon.com',\r\n}"]}

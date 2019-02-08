@@ -1,7 +1,7 @@
 import * as puppeteer from 'puppeteer';
-import * as fs from 'fs';
 import getCategoryData from './getCategoryData';
 import { Constants } from './constants';
+import { dbConnect, dbDisconnect } from './db_connection';
 
 process.setMaxListeners(20000);
 
@@ -11,9 +11,14 @@ async function main() {
     const browser = await puppeteer.launch({
       headless: true
     });
-    const data = await getCategoryData(startUrl, []);
+
+    await dbConnect();
+
+    await getCategoryData(startUrl);
+
+    await dbDisconnect();
+
     await browser.close();
-    return data;
 }
 
 process.on('SIGINT', async function() {
@@ -23,9 +28,5 @@ process.on('SIGINT', async function() {
 
 console.time('parse time');
 
-main()
-    .then(data => {
-        console.timeEnd('parse time');
-        fs.writeFileSync('result.json', data)
-    });
+(async () => main())();
 

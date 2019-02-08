@@ -3,8 +3,9 @@ import getBookRank from './getBookRank';
 import * as puppeteer from "puppeteer";
 import to from 'await-to-js';
 import { Constants } from './constants';
+import { addDocument } from './db_connection';
 
-const getCategoryData = async (url, resultData) => {
+const getCategoryData = async (url) => {
 
 	const browser = await puppeteer.launch(/*{headless: false}*/);
 
@@ -33,8 +34,6 @@ const getCategoryData = async (url, resultData) => {
 
 	// Getting current category title
 	const currentCategoryTitle = $(currentCategorySelector, pageContent)['0'].children[0].data;
-
-	console.log(currentCategoryTitle);
 
 	// Getting current category child categories
 	let childCategories: any|never[] = [];
@@ -78,13 +77,13 @@ const getCategoryData = async (url, resultData) => {
 			console.log(reason);
 		});
 
-	console.log(categoryBooksWithRank);
-
-	resultData.push({
+  let categoryData = {
 		categoryTitle: currentCategoryTitle,
+    categoryURI: url,
 		booksRank: categoryBooks,
-	});
+	};
 
+  addDocument(categoryData)
 
 	if (childCategories.length) {
 		// Fast and unstable
@@ -94,14 +93,13 @@ const getCategoryData = async (url, resultData) => {
 
 		// Slow and stable
 		for (let i = 0; i < childCategories.length; i++) {
-			resultData.push(await getCategoryData(childCategories[i].categoryURI, resultData));
+      await getCategoryData(childCategories[i].categoryURI);
 		}
 	}
 
 	await page.close();
 	await browser.close();
 
-	return resultData
 };
 
 // getCategoryData('https://www.amazon.com/Best-Sellers-Kindle-Store-Architects-Z/zgbs/digital-text/157631011/ref=zg_bs_nav_kstore_4_157630011', []);
