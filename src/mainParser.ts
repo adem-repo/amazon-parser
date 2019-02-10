@@ -9,7 +9,8 @@ let startUrl: string = `${Constants.amazonAddress}/Best-Sellers-Kindle-Store-Non
 
 async function main() {
     const browser = await puppeteer.launch({
-      headless: true
+        headless: true,
+        args: ['--no-sandbox', '--disable-setuid-sandbox']
     });
 
     await dbConnect();
